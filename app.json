@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "maMeteo",
+    "slug": "maMeteo",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "maMeteo"
+}
