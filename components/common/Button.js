@@ -1,20 +1,38 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, useColorScheme } from 'react-native';
+import { useTheme } from "@react-navigation/native";
 
 const MyButton = ({ onPress, style, title }) => {
+  const scheme = useColorScheme();
   return (
     <TouchableOpacity
-      style={style}
+      style={
+        scheme === 'dark' ? 
+        style.buttonDark
+        :
+        style.buttonLight
+      }
       onPress={onPress}
       >
-      <Text style={styleText}>{title}</Text>
+      <Text style={
+        scheme === 'dark' ? 
+        styles.buttonDark
+        :
+        styles.buttonLight
+      }>{title}</Text>
     </TouchableOpacity>
   )
 }
 
-const styleText = {
-  color: '#FFFFFF',
-  padding:10
-}
+const styles = StyleSheet.create({
+  buttonLight: {
+    color: '#FFFFFF',
+    padding:10
+  },
+  buttonDark: {
+    color: 'tomato',
+    padding: 10
+  }
+});
 
 export default MyButton;

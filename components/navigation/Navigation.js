@@ -1,9 +1,14 @@
 import React from "react";
+import { useColorScheme } from 'react-native';
 import About from "../About";
 import Search from "../Search";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { StatusBar } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { 
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native";
 import {
   createStackNavigator,
   TransitionPresets,
@@ -15,17 +20,47 @@ const SearchStackNavigator = createStackNavigator();
 const AboutStackNavigator = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const MyDarkTheme = {
+  dark: true,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    background: '#010101',
+    card: '#010101',
+    text: 'tomato',
+    border: 'tomato',
+  }
+}
+
+const MyLightTheme = {
+  dark: false,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    barckground: '#FFFFFF',
+  }
+}
+
+const stackGroupScreenOptions = {
+  light: {
+    headerStyle: {
+      backgroundColor: "tomato",
+    },
+    headerTintColor: "#FFF",
+    ...TransitionPresets.SlideFromRightIOS,
+  },
+  dark: {
+    headerTintColor: "tomato",
+    ...TransitionPresets.SlideFromRightIOS,
+  }
+}
+
 const SearchStackScreen = () => {
+  const scheme = useColorScheme();
   return (
     <SearchStackNavigator.Navigator>
       <SearchStackNavigator.Group
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "tomato",
-          },
-          headerTintColor: "#FFF",
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
+        screenOptions={scheme === 'dark' ? stackGroupScreenOptions.dark : stackGroupScreenOptions.light}
       >
         <SearchStackNavigator.Screen
           name="SearchScreen"
@@ -41,12 +76,17 @@ const SearchStackScreen = () => {
 };
 
 const AboutStackScreen = () => {
+  const scheme = useColorScheme();
   return (
     <AboutStackNavigator.Navigator>
-      <AboutStackNavigator.Screen
-        name="AboutScreen"
-        component={About}
-      ></AboutStackNavigator.Screen>
+    <AboutStackNavigator.Group
+        screenOptions={scheme === 'dark' ? stackGroupScreenOptions.dark : stackGroupScreenOptions.light}
+      >
+        <AboutStackNavigator.Screen
+          name="AboutScreen"
+          component={About}
+        ></AboutStackNavigator.Screen>
+      </AboutStackNavigator.Group>
     </AboutStackNavigator.Navigator>
   );
 };
@@ -70,7 +110,7 @@ const BottomTabsNavigation = () => {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: "tomato",
-        tabBarInactiveTintColor: "gray",
+        tabBarInactiveTintColor: "grey",
         tabBarHideOnKeyboard: true,
         headerShown: false,
       })}
@@ -82,8 +122,10 @@ const BottomTabsNavigation = () => {
 };
 
 const Navigation = () => {
+  const scheme = useColorScheme();
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={scheme === 'dark' ? MyDarkTheme : MyLightTheme}>
       <StatusBar hidden={true} />
       <BottomTabsNavigation />
     </NavigationContainer>
