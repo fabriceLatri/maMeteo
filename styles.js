@@ -1,4 +1,7 @@
 import { StyleSheet } from 'react-native';
+import { color } from 'react-native-reanimated';
+
+const COLOR = '#545658';
 
 export default StyleSheet.create({
   buttonLight: {
@@ -6,7 +9,7 @@ export default StyleSheet.create({
     color: '#FFFFFF',
     alignItems: 'center',
     borderRadius: 25,
-    margin: 10
+    margin: 10,
   },
   buttonDark: {
     backgroundColor: '#010101',
@@ -15,11 +18,36 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'tomato',
-    color: 'tomato'
+    color: 'tomato',
   },
   link: {
     marginHorizontal: 10,
     paddingHorizontal: 10,
-    textAlign: 'center'
-  }
-})
+    textAlign: 'center',
+  },
+  city: {
+    fontSize: 36,
+    fontWeight: '500',
+    color: COLOR,
+  },
+  today: {
+    fontSize: 24,
+    fontWeight: '300',
+    color: COLOR,
+  },
+  image: {
+    width: 150,
+    height: 150,
+    marginVertical: 20,
+  },
+  temp: {
+    fontSize: 80,
+    fontWeight: 'bold',
+    color: COLOR,
+  },
+  description: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: COLOR,
+  },
+});

@@ -1,20 +1,16 @@
-import React from "react";
+import React from 'react';
 import { useColorScheme } from 'react-native';
-import About from "../About";
-import Search from "../Search";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { StatusBar } from "react-native";
-import { 
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from "@react-navigation/native";
+import About from '../About';
+import Search from '../Search';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { StatusBar } from 'react-native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import {
   createStackNavigator,
   TransitionPresets,
-} from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import DetailsScreen from "../DetailsScreen";
+} from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import DetailsScreen from '../DetailsScreen';
 
 const SearchStackNavigator = createStackNavigator();
 const AboutStackNavigator = createStackNavigator();
@@ -29,47 +25,49 @@ const MyDarkTheme = {
     card: '#010101',
     text: 'tomato',
     border: 'tomato',
-  }
-}
+  },
+};
 
 const MyLightTheme = {
   dark: false,
   colors: {
     ...DefaultTheme.colors,
     primary: 'tomato',
-    barckground: '#FFFFFF',
-  }
-}
+    background: '#E2E6E1',
+    text: '#545658',
+  },
+};
 
 const stackGroupScreenOptions = {
   light: {
     headerStyle: {
-      backgroundColor: "tomato",
+      backgroundColor: 'tomato',
     },
-    headerTintColor: "#FFF",
+    headerTintColor: '#FFF',
     ...TransitionPresets.SlideFromRightIOS,
   },
   dark: {
-    headerTintColor: "tomato",
+    headerTintColor: 'tomato',
     ...TransitionPresets.SlideFromRightIOS,
-  }
-}
+  },
+};
 
 const SearchStackScreen = () => {
   const scheme = useColorScheme();
   return (
     <SearchStackNavigator.Navigator>
       <SearchStackNavigator.Group
-        screenOptions={scheme === 'dark' ? stackGroupScreenOptions.dark : stackGroupScreenOptions.light}
-      >
+        screenOptions={
+          scheme === 'dark'
+            ? stackGroupScreenOptions.dark
+            : stackGroupScreenOptions.light
+        }>
         <SearchStackNavigator.Screen
-          name="SearchScreen"
-          component={Search}
-        ></SearchStackNavigator.Screen>
+          name='SearchScreen'
+          component={Search}></SearchStackNavigator.Screen>
         <SearchStackNavigator.Screen
-          name="Details"
-          component={DetailsScreen}
-        ></SearchStackNavigator.Screen>
+          name='Details'
+          component={DetailsScreen}></SearchStackNavigator.Screen>
       </SearchStackNavigator.Group>
     </SearchStackNavigator.Navigator>
   );
@@ -79,13 +77,15 @@ const AboutStackScreen = () => {
   const scheme = useColorScheme();
   return (
     <AboutStackNavigator.Navigator>
-    <AboutStackNavigator.Group
-        screenOptions={scheme === 'dark' ? stackGroupScreenOptions.dark : stackGroupScreenOptions.light}
-      >
+      <AboutStackNavigator.Group
+        screenOptions={
+          scheme === 'dark'
+            ? stackGroupScreenOptions.dark
+            : stackGroupScreenOptions.light
+        }>
         <AboutStackNavigator.Screen
-          name="AboutScreen"
-          component={About}
-        ></AboutStackNavigator.Screen>
+          name='AboutScreen'
+          component={About}></AboutStackNavigator.Screen>
       </AboutStackNavigator.Group>
     </AboutStackNavigator.Navigator>
   );
@@ -98,25 +98,24 @@ const BottomTabsNavigation = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "Search") {
-            iconName = focused ? "ios-search" : "ios-search-outline";
-          } else if (route.name === "About") {
+          if (route.name === 'Search') {
+            iconName = focused ? 'ios-search' : 'ios-search-outline';
+          } else if (route.name === 'About') {
             iconName = focused
-              ? "ios-information-circle"
-              : "ios-information-circle-outline";
+              ? 'ios-information-circle'
+              : 'ios-information-circle-outline';
           }
 
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "tomato",
-        tabBarInactiveTintColor: "grey",
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'grey',
         tabBarHideOnKeyboard: true,
         headerShown: false,
-      })}
-    >
-      <Tab.Screen name="Search" component={SearchStackScreen} />
-      <Tab.Screen name="About" component={AboutStackScreen} />
+      })}>
+      <Tab.Screen name='Search' component={SearchStackScreen} />
+      <Tab.Screen name='About' component={AboutStackScreen} />
     </Tab.Navigator>
   );
 };
