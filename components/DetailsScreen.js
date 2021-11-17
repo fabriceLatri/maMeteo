@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
-import useAxios from '../API/OpenWeatherMap';
+import React, { useState, useEffect } from "react";
+import { View, Text, ActivityIndicator } from "react-native";
+import useAxios from "../API/OpenWeatherMap";
 
-import CurrentWeather from './CurrentWeather';
+import CurrentWeather from "./CurrentWeather";
+import Forecast from "./Forecast";
 
 const DetailsScreen = ({ route, navigation }) => {
   const {
@@ -10,15 +11,15 @@ const DetailsScreen = ({ route, navigation }) => {
   } = route.params;
 
   const url =
-    searchType === 'name'
-      ? '/forecast?q=' + data.text
-      : '/forecast?lat=' +
+    searchType === "name"
+      ? "/forecast?q=" + data.text
+      : "/forecast?lat=" +
         data.location.coords.latitude +
-        '&lon=' +
+        "&lon=" +
         data.location.coords.longitude;
 
   const { response, error, loading } = useAxios({
-    method: 'GET',
+    method: "GET",
     url: url,
   });
 
@@ -31,7 +32,7 @@ const DetailsScreen = ({ route, navigation }) => {
         title: response.city.name,
       });
     } else if (error) {
-      navigation.setOptions({ title: 'Ouuups' });
+      navigation.setOptions({ title: "Ouuups" });
     }
   }, [response, error]);
 
@@ -40,22 +41,24 @@ const DetailsScreen = ({ route, navigation }) => {
       <View
         style={{
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <ActivityIndicator color='tomato' size='large' />
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator color="tomato" size="large" />
       </View>
     );
   } else if (resData.length === 0) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text>Aucune ville ne correspond à votre recherche.</Text>
       </View>
     );
   } else {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <CurrentWeather data={resData} />
+        <Forecast data={resData} />
       </View>
     );
   }
