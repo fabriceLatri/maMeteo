@@ -44,10 +44,12 @@ const stackGroupScreenOptions = {
       backgroundColor: 'tomato',
     },
     headerTintColor: '#FFF',
+    headerTitleAlign: 'center',
     ...TransitionPresets.SlideFromRightIOS,
   },
   dark: {
     headerTintColor: 'tomato',
+    headerTitleAlign: 'center',
     ...TransitionPresets.SlideFromRightIOS,
   },
 };
