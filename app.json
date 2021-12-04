@@ -3,11 +3,19 @@
     "name": "maMeteo",
     "slug": "maMeteo",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
     "android": {
-      "package": "com.fabricelatri.maMeteo"
+      "package": "com.fabricelatri.maMeteo",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#FF6347"
+      }
     }
   },
   "name": "maMeteo"
