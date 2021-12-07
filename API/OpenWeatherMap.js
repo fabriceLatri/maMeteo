@@ -23,6 +23,7 @@ const useAxios = ({ url, method, body = null, headers = null }) => {
     axios
       .get(uri)
       .then((res) => {
+        console.log(res.status);
         setResponse(res.data);
       })
       .catch((err) => {
