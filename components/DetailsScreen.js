@@ -3,46 +3,27 @@ import { View, Text, ActivityIndicator } from 'react-native';
 
 // Redux
 import { connect } from 'react-redux';
-import { fetchWeatherwithFiveDaysForecast } from '../actions/fetchWeather.js';
+import { setReset } from '../actions/fetchWeather.js';
 
 import CurrentWeather from './CurrentWeather';
 import Forecast from './Forecast';
 
 const DetailsScreen = ({
-  route,
   navigation,
-  fetchWeatherwithFiveDaysForecast,
+  setReset,
   fetchWeather: { currentWeather, loading },
 }) => {
-  const {
-    param: { searchType, data },
-  } = route.params;
-
-  const url =
-    searchType === 'name'
-      ? '/forecast?q=' + data.text
-      : '/forecast?lat=' +
-        data.location.coords.latitude +
-        '&lon=' +
-        data.location.coords.longitude;
-
-  // const { response, error, loading } = useAxios({
-  //   method: 'GET',
-  //   url: url,
-  // });
-
   const [resData, setResData] = useState([]);
 
   useEffect(() => {
-    fetchWeatherwithFiveDaysForecast(url);
     if (!loading) {
       setResData(currentWeather);
-      console.log(resData, currentWeather);
+      setReset(true);
       navigation.setOptions({
         title: currentWeather.city.name,
       });
     }
-  }, [fetchWeatherwithFiveDaysForecast]);
+  }, [loading]);
 
   if (loading) {
     return (
@@ -75,6 +56,4 @@ const mapStateToProps = (state) => ({
   fetchWeather: state.fetchWeather,
 });
 
-export default connect(mapStateToProps, { fetchWeatherwithFiveDaysForecast })(
-  DetailsScreen
-);
+export default connect(mapStateToProps, { setReset })(DetailsScreen);

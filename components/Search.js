@@ -7,12 +7,29 @@ import Button from './common/Button.js';
 import Link from './common/Link.js';
 import style from '../styles.js';
 
-const Search = ({ navigation }) => {
+// Redux Integration
+import { connect } from 'react-redux';
+import {
+  fetchWeatherwithFiveDaysForecast,
+  resetFetchWeather,
+} from '../actions/fetchWeather.js';
+
+const Search = ({
+  navigation,
+  fetchWeather: { reset, loading },
+  fetchWeatherwithFiveDaysForecast,
+}) => {
   const [text, setText] = useState('');
 
   useEffect(() => {
+    // Set title Header navigation
     navigation.setOptions({ title: 'Rechercher une ville' });
-  }, []);
+
+    // RAZ currentWeather state if loading false
+    if (reset) {
+      resetFetchWeather();
+    }
+  }, [resetFetchWeather]);
 
   const search = () => {
     const param = {
@@ -21,7 +38,7 @@ const Search = ({ navigation }) => {
         text,
       },
     };
-    navigation.navigate('Details', { param });
+    onSubmit(param);
   };
 
   const searchByLocation = async () => {
@@ -42,8 +59,26 @@ const Search = ({ navigation }) => {
       },
     };
 
-    navigation.navigate('Details', { param });
+    onSubmit(param);
   };
+
+  const onSubmit = (params) => {
+    const { searchType, data } = params;
+
+    const url =
+      searchType === 'name'
+        ? '/forecast?q=' + data.text
+        : '/forecast?lat=' +
+          data.location.coords.latitude +
+          '&lon=' +
+          data.location.coords.longitude;
+
+    fetchWeatherwithFiveDaysForecast(url);
+  };
+
+  if (!loading) {
+    navigation.navigate('Details');
+  }
 
   return (
     <View style={styles.container}>
@@ -95,4 +130,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Search;
+const mapStateToProps = (state) => ({
+  fetchWeather: state.fetchWeather,
+});
+
+export default connect(mapStateToProps, {
+  fetchWeatherwithFiveDaysForecast,
+  resetFetchWeather,
+})(Search);

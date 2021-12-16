@@ -16,7 +16,10 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FF6347"
       }
+    },
+    "ios": {
+      "bundleIdentifier": "com.fabricelatri.maMeteo",
+      "buildNumber": "1.0.0"
     }
-  },
-  "name": "maMeteo"
+  }
 }
