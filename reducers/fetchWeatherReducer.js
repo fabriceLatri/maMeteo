@@ -2,7 +2,7 @@ import {
   FETCH_WEATHER,
   RESET_WEATHER,
   SET_RESET_WEATHER,
-} from '../constants/types.js';
+} from "../constants/types.js";
 
 const initialState = {
   currentWeather: [],
@@ -26,6 +26,13 @@ function fetchWeather(state = initialState, action) {
       };
 
     case RESET_WEATHER:
+      return {
+        ...state,
+        currentWeather: [],
+        loading: true,
+        reset: false,
+      };
+
     default:
       return state;
   }
