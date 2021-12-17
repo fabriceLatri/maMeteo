@@ -16,11 +16,13 @@ const DetailsScreen = ({
   useEffect(() => {
     if (!loading) {
       setResData(currentWeather);
-      navigation.setOptions({
-        title: currentWeather.city.name,
-      });
+      if (currentWeather.length > 0) {
+        navigation.setOptions({
+          title: currentWeather.city.name,
+        });
+      }
     }
-  }, [loading]);
+  }, [loading, currentWeather]);
 
   if (loading) {
     return (

@@ -1,5 +1,6 @@
 import {
   FETCH_WEATHER,
+  FETCH_WEATHER_ERROR,
   RESET_WEATHER,
   SET_RESET_WEATHER,
 } from "../constants/types.js";
@@ -31,6 +32,13 @@ function fetchWeather(state = initialState, action) {
         currentWeather: [],
         loading: true,
         reset: false,
+      };
+
+    case FETCH_WEATHER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        currentWeather: [],
       };
 
     default:
