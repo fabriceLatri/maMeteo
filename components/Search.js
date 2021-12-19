@@ -16,7 +16,6 @@ import {
 
 const Search = ({
   navigation,
-  fetchWeather: { loading },
   fetchWeatherwithFiveDaysForecast,
   resetFetchWeather,
 }) => {
@@ -24,11 +23,9 @@ const Search = ({
 
   useEffect(() => {
     // Set title Header navigation
-    navigation.setOptions({ title: 'Rechercher une ville' });
-
-    // if (nav) {
-    //   navigation.navigate("Details");
-    // }
+    navigation.setOptions({
+      title: 'Rechercher une ville',
+    });
   }, [navigation]);
 
   const search = () => {
