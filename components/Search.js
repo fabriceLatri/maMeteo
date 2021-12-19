@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import * as Location from "expo-location";
-import Button from "./common/Button.js";
-import Link from "./common/Link.js";
-import style from "../styles.js";
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as Location from 'expo-location';
+import Button from './common/Button.js';
+import Link from './common/Link.js';
+import style from '../styles.js';
 
 // Redux Integration
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import {
   fetchWeatherwithFiveDaysForecast,
   resetFetchWeather,
-} from "../actions/fetchWeather.js";
+} from '../actions/fetchWeather.js';
 
 const Search = ({
   navigation,
@@ -20,12 +20,11 @@ const Search = ({
   fetchWeatherwithFiveDaysForecast,
   resetFetchWeather,
 }) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
   useEffect(() => {
-    console.log("test");
     // Set title Header navigation
-    navigation.setOptions({ title: "Rechercher une ville" });
+    navigation.setOptions({ title: 'Rechercher une ville' });
 
     // if (nav) {
     //   navigation.navigate("Details");
@@ -34,7 +33,7 @@ const Search = ({
 
   const search = () => {
     const param = {
-      searchType: "name",
+      searchType: 'name',
       data: {
         text,
       },
@@ -46,15 +45,17 @@ const Search = ({
     // Authorization from user to use phone's location
     const { status } = await Location.requestForegroundPermissionsAsync();
 
-    if (status !== "granted") {
+    if (status !== 'granted') {
       return;
     }
 
     // Get user's current position by geolocation
-    const location = await Location.getCurrentPositionAsync();
+    const location = await Location.getCurrentPositionAsync({
+      accuracy: Location.Accuracy.Balanced,
+    });
 
     const param = {
-      searchType: "coords",
+      searchType: 'coords',
       data: {
         location,
       },
@@ -68,15 +69,16 @@ const Search = ({
     const { searchType, data } = params;
 
     const url =
-      searchType === "name"
-        ? "/forecast?q=" + data.text
-        : "/forecast?lat=" +
+      searchType === 'name'
+        ? '/forecast?q=' + data.text
+        : '/forecast?lat=' +
           data.location.coords.latitude +
-          "&lon=" +
+          '&lon=' +
           data.location.coords.longitude;
 
     fetchWeatherwithFiveDaysForecast(url);
-    navigation.navigate("Details");
+
+    navigation.navigate('Details');
   };
 
   return (
@@ -86,26 +88,25 @@ const Search = ({
         onChangeText={(value) => setText(value)}
         value={text}
         onSubmitEditing={() => search()}
-        placeholder="Entrez une ville"
+        placeholder='Entrez une ville'
       />
 
-      <Button onPress={() => search()} title="Rechercher" style={style} />
+      <Button onPress={() => search()} title='Rechercher' style={style} />
       <Text style={{ marginHorizontal: 10, marginVertical: 10 }}>
         Ou bien vous pouvez afficher la météo autour de vous
       </Text>
       <Link
         style={style.link}
-        title="Me géolocaliser"
-        onPress={() => searchByLocation()}
-      >
+        title='Me géolocaliser'
+        onPress={() => searchByLocation()}>
         <Ionicons
-          name="ios-location-outline"
-          color="tomato"
+          name='ios-location-outline'
+          color='tomato'
           size={30}
           style={{
             height: 30,
             width: 30,
-            alignSelf: "center",
+            alignSelf: 'center',
             marginTop: 10,
           }}
         />
@@ -117,13 +118,13 @@ const Search = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginHorizontal: 10,
   },
   textInput: {
     height: 40,
     borderRadius: 5,
-    borderColor: "gray",
+    borderColor: 'gray',
     borderWidth: 1,
     marginHorizontal: 10,
     paddingHorizontal: 10,
