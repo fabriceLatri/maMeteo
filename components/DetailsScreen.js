@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome5";
 
 // Redux
 import { connect } from "react-redux";
@@ -26,6 +27,17 @@ const DetailsScreen = ({
   useLayoutEffect(() => {
     navigation.setOptions({
       headerBackTitle: "Rech.",
+      headerRight: () => (
+        <FontAwesomeIcon
+          name="star"
+          color="#FFF"
+          size={20}
+          style={{
+            paddingRight: 20,
+          }}
+          onPress={() => alert("HeaderRightButton press")}
+        />
+      ),
     });
   }, [navigation]);
 

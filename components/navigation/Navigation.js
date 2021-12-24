@@ -105,12 +105,10 @@ const BottomTabsNavigation = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === "Search") {
+          if (route.name === "Rechercher") {
             iconName = focused ? "ios-search" : "ios-search-outline";
-          } else if (route.name === "About") {
-            iconName = focused
-              ? "ios-information-circle"
-              : "ios-information-circle-outline";
+          } else if (route.name === "Favoris") {
+            iconName = focused ? "ios-star" : "ios-star-outline";
           }
 
           // You can return any component that you like here!
@@ -122,8 +120,8 @@ const BottomTabsNavigation = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Search" component={SearchStackScreen} />
-      <Tab.Screen name="About" component={AboutStackScreen} />
+      <Tab.Screen name="Rechercher" component={SearchStackScreen} />
+      <Tab.Screen name="Favoris" component={AboutStackScreen} />
     </Tab.Navigator>
   );
 };
