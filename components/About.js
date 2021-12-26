@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-export default function About() {
+export default function About({ navigation }) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Favoris',
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.view}>
       <Text style={styles.title}>A propos de moi</Text>
